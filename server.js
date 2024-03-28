@@ -2,8 +2,12 @@ import dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import morgan from "morgan";
 import express from "express";
+import { dbClient } from "./db/db.js";
 
 const app = express();
+
+// DB connection
+dbClient();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
