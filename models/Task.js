@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-// models/task.js
-const mongoose = require("mongoose");
-
 const taskSchema = new Schema(
     {
         title: {
