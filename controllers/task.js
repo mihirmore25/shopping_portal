@@ -70,3 +70,33 @@ export const getTask = async (req, res) => {
         data: task,
     });
 };
+
+export const deleteTask = async (req, res) => {
+    let taskId = req.params.id;
+
+    if (!taskId || String(taskId).length < 24) {
+        return res.status(404).json({
+            status: false,
+            message: "Please search task with valid task id.",
+        });
+    }
+
+    const task = await Task.findById(taskId).select("-__v");
+
+    if (taskId && (task === null || undefined || 0)) {
+        return res.status(404).json({
+            status: false,
+            message: `Task did not found with ${taskId} id.`,
+        });
+    }
+
+    const deletedTask = await Task.deleteOne({ _id: taskId });
+
+    console.log("Deleted Task --> ", deletedTask);
+
+    return res.status(200).json({
+        status: true,
+        data: deletedTask,
+        message: "Task has been deleted successfully.",
+    });
+};
